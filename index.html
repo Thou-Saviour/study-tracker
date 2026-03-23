@@ -188,6 +188,7 @@
             color: #666;
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
+            white-space: nowrap;
         }
 
         .tab:hover {
@@ -209,6 +210,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .section-header h2 {
@@ -227,15 +230,18 @@
             border: 2px solid #e0e0e0;
             border-radius: 10px;
             padding: 20px;
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 20px;
-            align-items: center;
             transition: all 0.3s;
         }
 
         .task-item:hover {
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         .task-checkbox {
@@ -244,15 +250,11 @@
             cursor: pointer;
         }
 
-        .task-info {
-            flex: 1;
-        }
-
         .task-title {
             font-size: 18px;
             font-weight: 600;
             color: #333;
-            margin-bottom: 5px;
+            flex: 1;
         }
 
         .task-meta {
@@ -261,12 +263,35 @@
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .task-progress-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .user-progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-progress .name {
+            font-weight: 600;
+            color: #667eea;
         }
 
         .task-actions {
             display: flex;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .status-badge {
@@ -291,6 +316,11 @@
             color: #721c24;
         }
 
+        .status-progress {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -303,6 +333,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            overflow-y: auto;
         }
 
         .modal.active {
@@ -313,7 +344,7 @@
             background: white;
             padding: 40px;
             border-radius: 20px;
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
@@ -372,6 +403,11 @@
             color: white;
         }
 
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+
         /* Comparison View */
         .comparison {
             display: grid;
@@ -412,6 +448,265 @@
             border-bottom: 1px solid #e0e0e0;
         }
 
+        /* Warning Box */
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .warning-box h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .warning-box ul {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        /* Pending Summary */
+        .pending-summary {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .pending-summary h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .pending-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid #ffc107;
+        }
+
+        /* DPP Test Interface */
+        .dpp-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .dpp-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .dpp-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .dpp-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .dpp-meta {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .dpp-scores {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .score-box {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .score-box .name {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .score-box .score {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        /* Test Interface */
+        .test-interface {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .test-header {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .question-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .q-number {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .q-number:hover {
+            background: #f0f0f0;
+        }
+
+        .q-number.answered {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .q-number.marked {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .q-number.current {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .question-display {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            background: #f8f9fa;
+        }
+
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .test-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Results */
+        .results-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .score-display {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-display .total-score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .breakdown-item {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .breakdown-item .label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .breakdown-item .value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .question-review {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .question-review.correct {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+
+        .question-review.incorrect {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .header {
@@ -440,14 +735,8 @@
                 padding: 20px;
             }
 
-            .task-item {
-                grid-template-columns: auto 1fr;
-                gap: 15px;
-            }
-
-            .task-actions {
-                grid-column: 1 / -1;
-                justify-content: flex-start;
+            .task-progress-row {
+                grid-template-columns: 1fr;
             }
 
             .comparison {
@@ -460,6 +749,15 @@
 
             .user-selection {
                 flex-direction: column;
+            }
+
+            .dpp-list {
+                grid-template-columns: 1fr;
+            }
+
+            .test-header {
+                flex-direction: column;
+                gap: 10px;
             }
         }
 
@@ -497,6 +795,22 @@
 
         .is-admin .btn.admin-only {
             display: inline-block;
+        }
+
+        /* Archive indicator */
+        .task-item.archived {
+            opacity: 0.6;
+        }
+
+        /* DPP Upload Template */
+        .template-helper {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -566,7 +880,7 @@
                 <div class="value" id="currentStreak">0 🔥</div>
             </div>
             <div class="stat-card">
-                <h3>Pending Tasks</h3>
+                <h3>Your Pending</h3>
                 <div class="value" id="pendingCount">0</div>
             </div>
             <div class="stat-card">
@@ -582,7 +896,9 @@
             <button class="tab" onclick="switchTab('chemistry')">🧪 Chemistry</button>
             <button class="tab" onclick="switchTab('maths')">📐 Maths</button>
             <button class="tab" onclick="switchTab('boards')">📖 Boards</button>
+            <button class="tab" onclick="switchTab('dpp')">📝 DPP Tests</button>
             <button class="tab" onclick="switchTab('comparison')">🏆 Competition</button>
+            <button class="tab" onclick="switchTab('archive')">📦 Archive</button>
         </div>
 
         <!-- Content Area -->
@@ -590,8 +906,17 @@
             <!-- Dashboard Tab -->
             <div id="tab-dashboard" class="tab-content">
                 <div class="section-header">
-                    <h2>Today's Tasks</h2>
+                    <h2>Dashboard Overview</h2>
                 </div>
+                
+                <!-- Partner's Pending Tasks -->
+                <div id="partnerPending" class="pending-summary">
+                    <h3 id="partnerPendingTitle">Micheal's Pending Tasks</h3>
+                    <div id="partnerPendingList"></div>
+                </div>
+
+                <!-- Today's Tasks -->
+                <h3 style="margin-bottom: 15px;">Today's Tasks</h3>
                 <div id="todayTasks" class="task-list">
                     <p style="color: #666;">Loading tasks...</p>
                 </div>
@@ -631,12 +956,30 @@
                 <div id="boardsTasks" class="task-list"></div>
             </div>
 
+            <!-- DPP Tab -->
+            <div id="tab-dpp" class="tab-content hidden">
+                <div class="section-header">
+                    <h2>📝 DPP Tests</h2>
+                    <button class="btn btn-primary btn-small admin-only" onclick="showUploadDPPModal()">+ Upload DPP</button>
+                </div>
+                <div id="dppList" class="dpp-list"></div>
+            </div>
+
             <!-- Comparison Tab -->
             <div id="tab-comparison" class="tab-content hidden">
                 <h2 style="margin-bottom: 20px;">🏆 Head to Head</h2>
                 <div class="comparison" id="comparisonView">
                     <!-- Will be populated by JS -->
                 </div>
+            </div>
+
+            <!-- Archive Tab -->
+            <div id="tab-archive" class="tab-content hidden">
+                <div class="section-header">
+                    <h2>📦 Archived Tasks</h2>
+                    <p style="color: #666;">Tasks older than 30 days past deadline</p>
+                </div>
+                <div id="archiveTasks" class="task-list"></div>
             </div>
         </div>
     </div>
@@ -645,6 +988,11 @@
     <div id="taskModal" class="modal">
         <div class="modal-content">
             <h2 id="modalTitle">Add New Task</h2>
+            <div id="overloadWarning" class="warning-box hidden">
+                <h3>⚠️ Warning: High Pending Task Load</h3>
+                <ul id="overloadList"></ul>
+                <p>Consider reducing the workload or letting pending tasks be completed first.</p>
+            </div>
             <form id="taskForm">
                 <div class="form-group">
                     <label>Subject</label>
@@ -728,6 +1076,119 @@
         </div>
     </div>
 
+    <!-- Upload DPP Modal -->
+    <div id="uploadDPPModal" class="modal">
+        <div class="modal-content">
+            <h2>Upload DPP (Blind Mode)</h2>
+            <p style="color: #666; margin-bottom: 20px;">Questions will be hidden after upload. You can take the test after 2 hours.</p>
+            
+            <div class="template-helper">
+SUBJECT: Physics
+TOPIC: Electric Charges and Field
+DPP_NUMBER: 02
+TOTAL_QUESTIONS: 10
+TIME_LIMIT: 20
+MARKING: +4/-1/0
+
+---Q1---
+Question text here
+(A) Option 1
+(B) Option 2
+(C) Option 3
+(D) Option 4
+ANSWER: A
+
+---Q2---
+[Continue for all questions...]
+            </div>
+
+            <form id="uploadDPPForm">
+                <div class="form-group">
+                    <label>Paste Formatted DPP Content</label>
+                    <textarea id="dppContent" style="min-height: 300px; font-family: monospace;" placeholder="Paste your DPP content here in the format shown above..." required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeDPPModal()">Cancel</button>
+                    <button type="submit" class="btn btn-success">Process & Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DPP Test Interface Modal -->
+    <div id="testModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="test-interface">
+                <div class="test-header">
+                    <div>
+                        <h2 id="testTitle">DPP Test</h2>
+                        <p id="testMeta">10 Questions | +4/-1/0</p>
+                    </div>
+                    <div class="timer" id="testTimer">00:00</div>
+                </div>
+
+                <div class="question-palette" id="questionPalette"></div>
+
+                <div class="question-display" id="questionDisplay">
+                    <div class="question-text" id="currentQuestion"></div>
+                    <div class="options" id="currentOptions"></div>
+                </div>
+
+                <div class="test-controls">
+                    <div>
+                        <button class="btn btn-secondary btn-small" onclick="markForReview()">🚩 Mark for Review</button>
+                        <button class="btn btn-secondary btn-small" onclick="clearResponse()">Clear Response</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary btn-small" onclick="previousQuestion()">← Previous</button>
+                        <button class="btn btn-secondary btn-small" onclick="nextQuestion()">Next →</button>
+                        <button class="btn btn-danger btn-small" onclick="submitTest()">Submit Test</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DPP Results Modal -->
+    <div id="resultsModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <h2>📊 Test Results</h2>
+            <div class="results-summary">
+                <div class="score-display">
+                    <div class="total-score" id="totalScore">0/40</div>
+                    <p style="color: #666;">Your Score</p>
+                </div>
+
+                <div class="score-breakdown">
+                    <div class="breakdown-item">
+                        <div class="label">Correct</div>
+                        <div class="value" style="color: #28a745;" id="correctCount">0</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="label">Incorrect</div>
+                        <div class="value" style="color: #dc3545;" id="incorrectCount">0</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="label">Unattempted</div>
+                        <div class="value" style="color: #666;" id="unattemptedCount">0</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="label">Time Taken</div>
+                        <div class="value" style="color: #667eea;" id="timeTaken">00:00</div>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 15px;">Question-wise Analysis</h3>
+                <div id="questionReview"></div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="closeResultsModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -736,14 +1197,14 @@
         // ========== FIREBASE CONFIGURATION ==========
         // REPLACE THIS WITH YOUR FIREBASE CONFIG
         const firebaseConfig = {
-  apiKey: "AIzaSyBxDPSvCZF-UV_5IxaHH6mE4pwnaZdNadU",
-  authDomain: "jee-s-track.firebaseapp.com",
-  databaseURL: "https://jee-s-track-default-rtdb.firebaseio.com",
-  projectId: "jee-s-track",
-  storageBucket: "jee-s-track.firebasestorage.app",
-  messagingSenderId: "249533990944",
-  appId: "1:249533990944:web:36a6ae9a47b8a435549445"
-};
+      apiKey: "AIzaSyBxDPSvCZF-UV_5IxaHH6mE4pwnaZdNadU",
+      authDomain: "jee-s-track.firebaseapp.com",
+      databaseURL: "https://jee-s-track-default-rtdb.firebaseio.com",
+      projectId: "jee-s-track",
+      storageBucket: "jee-s-track.firebasestorage.app",
+      messagingSenderId: "249533990944",
+      appId: "1:249533990944:web:36a6ae9a47b8a435549445"
+    };
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -757,8 +1218,16 @@
             Krish: {},
             Micheal: {}
         };
+        let dpps = [];
+        let currentDPP = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let markedQuestions = [];
+        let testStartTime = null;
+        let timerInterval = null;
 
         const SITE_PASSWORD = "JEE2027";
+        const ARCHIVE_DAYS = 30;
 
         // ========== INITIALIZATION ==========
         window.onload = function() {
@@ -879,6 +1348,10 @@
                 document.body.classList.add('is-admin');
             }
             
+            // Update partner name in dashboard
+            const partnerName = currentUser === 'Krish' ? 'Micheal' : 'Krish';
+            document.getElementById('partnerPendingTitle').textContent = partnerName + "'s Pending Tasks";
+            
             loadAllData();
         }
 
@@ -917,6 +1390,18 @@
                 renderAllTasks();
                 updateDashboard();
             });
+
+            // Load DPPs
+            database.ref('dpps').on('value', (snapshot) => {
+                dpps = [];
+                snapshot.forEach((child) => {
+                    dpps.push({
+                        id: child.key,
+                        ...child.val()
+                    });
+                });
+                renderDPPList();
+            });
         }
 
         // ========== TASK MANAGEMENT ==========
@@ -934,11 +1419,35 @@
                 document.getElementById('typeGroup').style.display = 'block';
             }
             
+            // Check for overload
+            checkOverload(subject);
+            
             document.getElementById('taskModal').classList.add('active');
         }
 
         function closeTaskModal() {
             document.getElementById('taskModal').classList.remove('active');
+            document.getElementById('overloadWarning').classList.add('hidden');
+        }
+
+        function checkOverload(subject) {
+            const pendingThreshold = 5;
+            const partnerName = currentUser === 'Krish' ? 'Micheal' : 'Krish';
+            
+            const pendingCount = tasks.filter(t => {
+                return t.subject === subject && 
+                       userProgress[partnerName][t.id]?.status !== 'Done';
+            }).length;
+
+            const warningBox = document.getElementById('overloadWarning');
+            const warningList = document.getElementById('overloadList');
+
+            if (pendingCount >= pendingThreshold) {
+                warningList.innerHTML = `<li>${partnerName} has ${pendingCount} pending ${subject} tasks</li>`;
+                warningBox.classList.remove('hidden');
+            } else {
+                warningBox.classList.add('hidden');
+            }
         }
 
         document.getElementById('taskForm').onsubmit = function(e) {
@@ -1013,6 +1522,14 @@
             database.ref('progress/' + currentUser + '/' + taskId).update(progress);
         }
 
+        // ========== ARCHIVE LOGIC ==========
+        function isArchived(task) {
+            const deadline = new Date(task.deadline);
+            const today = new Date();
+            const daysPast = Math.floor((today - deadline) / (1000 * 60 * 60 * 24));
+            return daysPast > ARCHIVE_DAYS;
+        }
+
         // ========== RENDERING ==========
         function renderAllTasks() {
             renderTasksForSubject('physics', 'Physics');
@@ -1020,15 +1537,17 @@
             renderTasksForSubject('maths', 'Maths');
             renderBoardsTasks();
             renderTodayTasks();
+            renderPartnerPending();
             renderComparison();
+            renderArchiveTasks();
         }
 
         function renderTasksForSubject(containerId, subject) {
             const container = document.getElementById(containerId + 'Tasks');
-            const subjectTasks = tasks.filter(t => t.subject === subject);
+            const subjectTasks = tasks.filter(t => t.subject === subject && !isArchived(t));
             
             if (subjectTasks.length === 0) {
-                container.innerHTML = '<p style="color: #666;">No tasks yet. Add some to get started!</p>';
+                container.innerHTML = '<p style="color: #666;">No active tasks. Add some to get started!</p>';
                 return;
             }
 
@@ -1038,7 +1557,7 @@
         function renderBoardsTasks() {
             const container = document.getElementById('boardsTasks');
             const boardSubjects = ['English', 'Computer Science', 'Physical Education'];
-            const boardTasks = tasks.filter(t => boardSubjects.includes(t.subject));
+            const boardTasks = tasks.filter(t => boardSubjects.includes(t.subject) && !isArchived(t));
             
             if (boardTasks.length === 0) {
                 container.innerHTML = '<p style="color: #666;">No chapters yet. Add some to get started!</p>';
@@ -1068,7 +1587,7 @@
             const todayTasks = tasks.filter(task => {
                 const deadline = task.deadline;
                 const status = userProgress[currentUser][task.id]?.status || 'Pending';
-                return deadline <= today && status !== 'Done';
+                return deadline <= today && status !== 'Done' && !isArchived(task);
             });
 
             if (todayTasks.length === 0) {
@@ -1079,36 +1598,123 @@
             container.innerHTML = todayTasks.map(task => createTaskHTML(task)).join('');
         }
 
-        function createTaskHTML(task) {
-            const progress = userProgress[currentUser][task.id] || {};
-            const status = progress.status || 'Pending';
-            const isDone = status === 'Done';
+        function renderPartnerPending() {
+            const partnerName = currentUser === 'Krish' ? 'Micheal' : 'Krish';
+            const container = document.getElementById('partnerPendingList');
+            
+            const pendingTasks = tasks.filter(task => {
+                const status = userProgress[partnerName][task.id]?.status || 'Pending';
+                return status !== 'Done' && !isArchived(task);
+            });
+
+            if (pendingTasks.length === 0) {
+                container.innerHTML = '<p style="color: #666;">No pending tasks! 🎉</p>';
+                return;
+            }
+
+            // Group by subject
+            const grouped = {};
+            pendingTasks.forEach(task => {
+                if (!grouped[task.subject]) grouped[task.subject] = [];
+                grouped[task.subject].push(task);
+            });
+
+            let html = '';
+            Object.keys(grouped).forEach(subject => {
+                html += `<h4 style="color: #667eea; margin: 15px 0 10px 0;">${subject} (${grouped[subject].length} pending)</h4>`;
+                grouped[subject].forEach(task => {
+                    const daysLeft = getDaysLeft(task.deadline);
+                    const daysText = daysLeft < 0 ? 
+                        `${Math.abs(daysLeft)} days overdue` : 
+                        daysLeft === 0 ? 'Due today' : 
+                        `${daysLeft} days left`;
+                    
+                    html += `
+                        <div class="pending-item">
+                            🟡 ${task.type}: ${task.name} | Deadline: ${formatDate(task.deadline)} (${daysText})
+                        </div>
+                    `;
+                });
+            });
+
+            container.innerHTML = html;
+        }
+
+        function renderArchiveTasks() {
+            const container = document.getElementById('archiveTasks');
+            const archivedTasks = tasks.filter(t => isArchived(t));
+            
+            if (archivedTasks.length === 0) {
+                container.innerHTML = '<p style="color: #666;">No archived tasks yet.</p>';
+                return;
+            }
+
+            container.innerHTML = archivedTasks.map(task => createTaskHTML(task, true)).join('');
+        }
+
+        function createTaskHTML(task, showArchived = false) {
+            const krishProgress = userProgress.Krish[task.id] || {};
+            const michealProgress = userProgress.Micheal[task.id] || {};
+            
+            const krishStatus = krishProgress.status || 'Pending';
+            const michealStatus = michealProgress.status || 'Pending';
+            
+            const myStatus = currentUser === 'Krish' ? krishStatus : michealStatus;
+            const myProgress = currentUser === 'Krish' ? krishProgress : michealProgress;
+            
+            const isDone = myStatus === 'Done';
             
             const today = new Date().toISOString().split('T')[0];
             const isOverdue = task.deadline < today && !isDone;
             
-            let statusClass = 'status-pending';
-            if (isDone) statusClass = 'status-done';
-            else if (isOverdue) statusClass = 'status-overdue';
+            function getStatusClass(status, overdue) {
+                if (status === 'Done') return 'status-done';
+                if (status === 'In Progress') return 'status-progress';
+                if (overdue) return 'status-overdue';
+                return 'status-pending';
+            }
 
-            let statusText = status;
-            if (isOverdue) statusText = 'Overdue';
+            function getStatusBadge(status, progress, deadline) {
+                if (status === 'Done') {
+                    return `<span class="status-badge status-done">✅ Done${progress.completedDate ? ' (' + formatDate(progress.completedDate) + ')' : ''}</span>`;
+                }
+                const daysDiff = getDaysLeft(deadline);
+                if (daysDiff < 0) {
+                    return `<span class="status-badge status-overdue">⚠️ Overdue (${Math.abs(daysDiff)}d)</span>`;
+                }
+                if (status === 'In Progress') {
+                    return `<span class="status-badge status-progress">🔄 In Progress</span>`;
+                }
+                return `<span class="status-badge status-pending">🟡 Pending</span>`;
+            }
+
+            const archiveClass = showArchived ? 'archived' : '';
 
             return `
-                <div class="task-item">
-                    <input type="checkbox" class="task-checkbox" 
-                           ${isDone ? 'checked' : ''} 
-                           onchange="toggleTaskStatus('${task.id}')">
-                    <div class="task-info">
+                <div class="task-item ${archiveClass}">
+                    <div class="task-header">
+                        <input type="checkbox" class="task-checkbox" 
+                               ${isDone ? 'checked' : ''} 
+                               onchange="toggleTaskStatus('${task.id}')">
                         <div class="task-title">${task.type}: ${task.name}</div>
-                        <div class="task-meta">
-                            <span>📅 Deadline: ${formatDate(task.deadline)}</span>
-                            ${progress.score ? `<span>📊 Score: ${progress.score}</span>` : ''}
-                            ${progress.completedDate ? `<span>✅ Done on: ${formatDate(progress.completedDate)}</span>` : ''}
+                    </div>
+                    <div class="task-meta">
+                        <span>📅 Deadline: ${formatDate(task.deadline)}</span>
+                        <span>📚 ${task.subject}</span>
+                    </div>
+                    <div class="task-progress-row">
+                        <div class="user-progress">
+                            <span class="name">👨‍🎓 Krish:</span>
+                            ${getStatusBadge(krishStatus, krishProgress, task.deadline)}
+                            ${krishProgress.score ? `<span>📊 ${krishProgress.score}</span>` : ''}
+                        </div>
+                        <div class="user-progress">
+                            <span class="name">👨‍💻 Micheal:</span>
+                            ${getStatusBadge(michealStatus, michealProgress, task.deadline)}
+                            ${michealProgress.score ? `<span>📊 ${michealProgress.score}</span>` : ''}
                         </div>
                     </div>
                     <div class="task-actions">
-                        <span class="status-badge ${statusClass}">${statusText}</span>
                         <button class="btn btn-secondary btn-small" onclick="showProgressModal('${task.id}')">
                             📝 Update
                         </button>
@@ -1116,6 +1722,14 @@
                     </div>
                 </div>
             `;
+        }
+
+        function getDaysLeft(deadline) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const deadlineDate = new Date(deadline);
+            deadlineDate.setHours(0, 0, 0, 0);
+            return Math.floor((deadlineDate - today) / (1000 * 60 * 60 * 24));
         }
 
         function formatDate(dateStr) {
@@ -1128,12 +1742,12 @@
         function updateDashboard() {
             const today = new Date();
             const weekStart = new Date(today);
-            weekStart.setDate(today.getDate() - today.getDay()); // Start of week
+            weekStart.setDate(today.getDate() - today.getDay());
             
-            // This week's tasks
+            // This week's tasks (non-archived)
             const weekTasks = tasks.filter(task => {
                 const deadline = new Date(task.deadline);
-                return deadline >= weekStart;
+                return deadline >= weekStart && !isArchived(task);
             });
 
             const weekCompleted = weekTasks.filter(task => {
@@ -1146,9 +1760,9 @@
             document.getElementById('weeklyProgress').textContent = `${weekCompleted}/${weekTotal}`;
             document.getElementById('weeklyProgressBar').style.width = weekPercent + '%';
 
-            // Pending tasks
+            // Pending tasks (non-archived)
             const pending = tasks.filter(task => {
-                return userProgress[currentUser][task.id]?.status !== 'Done';
+                return userProgress[currentUser][task.id]?.status !== 'Done' && !isArchived(task);
             }).length;
             document.getElementById('pendingCount').textContent = pending;
 
@@ -1172,7 +1786,6 @@
         }
 
         function calculateStreak(userName) {
-            // Simple streak calculation - count consecutive days with at least 1 task done
             let streak = 0;
             const today = new Date();
             
@@ -1224,6 +1837,10 @@
                             <span>This Week</span>
                             <strong>${krishStats.weekCompleted}/${krishStats.weekTotal}</strong>
                         </div>
+                        <div class="stat-row">
+                            <span>Pending Tasks</span>
+                            <strong>${krishStats.pending}</strong>
+                        </div>
                     </div>
                 </div>
 
@@ -1246,14 +1863,20 @@
                             <span>This Week</span>
                             <strong>${michealStats.weekCompleted}/${michealStats.weekTotal}</strong>
                         </div>
+                        <div class="stat-row">
+                            <span>Pending Tasks</span>
+                            <strong>${michealStats.pending}</strong>
+                        </div>
                     </div>
                 </div>
             `;
         }
 
         function getUserStats(userName) {
-            const total = tasks.length;
-            const completed = tasks.filter(t => userProgress[userName][t.id]?.status === 'Done').length;
+            const activeTasks = tasks.filter(t => !isArchived(t));
+            const total = activeTasks.length;
+            const completed = activeTasks.filter(t => userProgress[userName][t.id]?.status === 'Done').length;
+            const pending = activeTasks.filter(t => userProgress[userName][t.id]?.status !== 'Done').length;
             const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
             const streak = calculateStreak(userName);
 
@@ -1261,7 +1884,7 @@
             const weekStart = new Date(today);
             weekStart.setDate(today.getDate() - today.getDay());
             
-            const weekTasks = tasks.filter(task => {
+            const weekTasks = activeTasks.filter(task => {
                 const deadline = new Date(task.deadline);
                 return deadline >= weekStart;
             });
@@ -1270,6 +1893,7 @@
             return {
                 total,
                 completed,
+                pending,
                 completionRate,
                 streak,
                 weekTotal: weekTasks.length,
@@ -1307,7 +1931,390 @@
             } else {
                 document.getElementById('typeGroup').style.display = 'block';
             }
+
+            // Check overload when subject changes
+            if (subject) {
+                checkOverload(subject);
+            }
         });
+
+        // ========== DPP SYSTEM ==========
+        function showUploadDPPModal() {
+            document.getElementById('uploadDPPModal').classList.add('active');
+        }
+
+        function closeDPPModal() {
+            document.getElementById('uploadDPPModal').classList.remove('active');
+            document.getElementById('uploadDPPForm').reset();
+        }
+
+        document.getElementById('uploadDPPForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            const content = document.getElementById('dppContent').value;
+            
+            try {
+                const dpp = parseDPPContent(content);
+                
+                // Add metadata
+                dpp.uploadedBy = currentUser;
+                dpp.uploadedAt = new Date().toISOString();
+                dpp.cooldownUntil = new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(); // 2 hours from now
+                
+                // Save to Firebase
+                database.ref('dpps').push(dpp).then(() => {
+                    alert('DPP uploaded successfully! You can take it after 2 hours.');
+                    closeDPPModal();
+                }).catch(err => {
+                    alert('Error uploading DPP: ' + err.message);
+                });
+                
+            } catch (err) {
+                alert('Error parsing DPP: ' + err.message + '\n\nPlease check the format.');
+            }
+        };
+
+        function parseDPPContent(content) {
+            const lines = content.trim().split('\n');
+            const dpp = {
+                questions: []
+            };
+            
+            // Parse header
+            for (let line of lines) {
+                if (line.startsWith('SUBJECT:')) dpp.subject = line.split(':')[1].trim();
+                if (line.startsWith('TOPIC:')) dpp.topic = line.split(':')[1].trim();
+                if (line.startsWith('DPP_NUMBER:')) dpp.number = line.split(':')[1].trim();
+                if (line.startsWith('TOTAL_QUESTIONS:')) dpp.totalQuestions = parseInt(line.split(':')[1].trim());
+                if (line.startsWith('TIME_LIMIT:')) dpp.timeLimit = parseInt(line.split(':')[1].trim());
+                if (line.startsWith('MARKING:')) dpp.marking = line.split(':')[1].trim();
+            }
+            
+            // Parse questions
+            const questionBlocks = content.split('---Q').filter(b => b.trim());
+            
+            for (let i = 1; i < questionBlocks.length; i++) {
+                const block = questionBlocks[i];
+                const lines = block.split('\n').filter(l => l.trim());
+                
+                const question = {
+                    number: i,
+                    text: '',
+                    options: [],
+                    answer: ''
+                };
+                
+                let currentSection = 'text';
+                
+                for (let line of lines) {
+                    line = line.trim();
+                    if (!line) continue;
+                    
+                    if (line.startsWith('(A)') || line.startsWith('(B)') || line.startsWith('(C)') || line.startsWith('(D)')) {
+                        currentSection = 'options';
+                        question.options.push(line);
+                    } else if (line.startsWith('ANSWER:')) {
+                        question.answer = line.split(':')[1].trim();
+                    } else if (currentSection === 'text' && !line.startsWith('---')) {
+                        question.text += line + ' ';
+                    }
+                }
+                
+                question.text = question.text.trim();
+                dpp.questions.push(question);
+            }
+            
+            if (dpp.questions.length !== dpp.totalQuestions) {
+                throw new Error(`Expected ${dpp.totalQuestions} questions but found ${dpp.questions.length}`);
+            }
+            
+            return dpp;
+        }
+
+        function renderDPPList() {
+            const container = document.getElementById('dppList');
+            
+            if (dpps.length === 0) {
+                container.innerHTML = '<p style="color: #666;">No DPPs uploaded yet. Upload your first DPP to get started!</p>';
+                return;
+            }
+
+            container.innerHTML = dpps.map(dpp => {
+                const krishAttempts = dpp.attempts?.Krish || [];
+                const michealAttempts = dpp.attempts?.Micheal || [];
+                
+                const krishBest = krishAttempts.length > 0 ? 
+                    Math.max(...krishAttempts.map(a => a.score)) : 'Not attempted';
+                const michealBest = michealAttempts.length > 0 ? 
+                    Math.max(...michealAttempts.map(a => a.score)) : 'Not attempted';
+                
+                const canTake = canTakeDPP(dpp);
+                const cooldownMsg = !canTake ? `(Cooldown: ${getTimeUntilCooldown(dpp.cooldownUntil)})` : '';
+                
+                return `
+                    <div class="dpp-card">
+                        <h3>DPP-${dpp.number}: ${dpp.topic}</h3>
+                        <div class="dpp-meta">
+                            📚 ${dpp.subject} | ⏱️ ${dpp.timeLimit} min | ${dpp.totalQuestions} questions<br>
+                            📊 ${dpp.marking} | 👤 Uploaded by ${dpp.uploadedBy}
+                        </div>
+                        <div class="dpp-scores">
+                            <div class="score-box">
+                                <div class="name">Krish</div>
+                                <div class="score">${krishBest}</div>
+                                ${krishAttempts.length > 0 ? `<small>${krishAttempts.length} attempt(s)</small>` : ''}
+                            </div>
+                            <div class="score-box">
+                                <div class="name">Micheal</div>
+                                <div class="score">${michealBest}</div>
+                                ${michealAttempts.length > 0 ? `<small>${michealAttempts.length} attempt(s)</small>` : ''}
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-small" 
+                                onclick="startDPP('${dpp.id}')"
+                                ${!canTake ? 'disabled' : ''}>
+                            ${canTake ? '▶️ Start Test' : '⏳ ' + cooldownMsg}
+                        </button>
+                        ${dpp.uploadedBy === currentUser && isAdmin ? 
+                            `<button class="btn btn-danger btn-small" onclick="deleteDPP('${dpp.id}')">🗑️</button>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function canTakeDPP(dpp) {
+            if (dpp.uploadedBy !== currentUser) return true;
+            
+            const cooldownUntil = new Date(dpp.cooldownUntil);
+            const now = new Date();
+            return now >= cooldownUntil;
+        }
+
+        function getTimeUntilCooldown(cooldownTime) {
+            const cooldown = new Date(cooldownTime);
+            const now = new Date();
+            const diff = cooldown - now;
+            
+            if (diff <= 0) return 'Ready';
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            if (hours > 0) return `${hours}h ${minutes}m`;
+            return `${minutes}m`;
+        }
+
+        function deleteDPP(dppId) {
+            if (confirm('Are you sure you want to delete this DPP?')) {
+                database.ref('dpps/' + dppId).remove();
+            }
+        }
+
+        function startDPP(dppId) {
+            const dpp = dpps.find(d => d.id === dppId);
+            if (!dpp) return;
+            
+            if (!canTakeDPP(dpp)) {
+                alert('Please wait for the cooldown period to end.');
+                return;
+            }
+            
+            currentDPP = dpp;
+            currentQuestionIndex = 0;
+            userAnswers = {};
+            markedQuestions = [];
+            testStartTime = Date.now();
+            
+            document.getElementById('testTitle').textContent = `DPP-${dpp.number}: ${dpp.topic}`;
+            document.getElementById('testMeta').textContent = `${dpp.totalQuestions} Questions | ${dpp.marking}`;
+            
+            renderQuestionPalette();
+            renderQuestion();
+            startTimer();
+            
+            document.getElementById('testModal').classList.add('active');
+        }
+
+        function renderQuestionPalette() {
+            const palette = document.getElementById('questionPalette');
+            palette.innerHTML = currentDPP.questions.map((q, i) => {
+                let classes = 'q-number';
+                if (i === currentQuestionIndex) classes += ' current';
+                if (userAnswers[i]) classes += ' answered';
+                if (markedQuestions.includes(i)) classes += ' marked';
+                
+                return `<div class="${classes}" onclick="jumpToQuestion(${i})">${i + 1}</div>`;
+            }).join('');
+        }
+
+        function renderQuestion() {
+            const question = currentDPP.questions[currentQuestionIndex];
+            
+            document.getElementById('currentQuestion').textContent = 
+                `Q${currentQuestionIndex + 1}. ${question.text}`;
+            
+            const optionsHTML = question.options.map((opt, i) => {
+                const letter = ['A', 'B', 'C', 'D'][i];
+                const isSelected = userAnswers[currentQuestionIndex] === letter;
+                return `
+                    <div class="option ${isSelected ? 'selected' : ''}" 
+                         onclick="selectOption('${letter}')">
+                        ${opt}
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('currentOptions').innerHTML = optionsHTML;
+            renderQuestionPalette();
+        }
+
+        function selectOption(option) {
+            userAnswers[currentQuestionIndex] = option;
+            renderQuestion();
+        }
+
+        function clearResponse() {
+            delete userAnswers[currentQuestionIndex];
+            renderQuestion();
+        }
+
+        function markForReview() {
+            const idx = markedQuestions.indexOf(currentQuestionIndex);
+            if (idx > -1) {
+                markedQuestions.splice(idx, 1);
+            } else {
+                markedQuestions.push(currentQuestionIndex);
+            }
+            renderQuestionPalette();
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < currentDPP.questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            }
+        }
+
+        function jumpToQuestion(index) {
+            currentQuestionIndex = index;
+            renderQuestion();
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - testStartTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                
+                document.getElementById('testTimer').textContent = 
+                    `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function submitTest() {
+            if (!confirm(`You have answered ${Object.keys(userAnswers).length} out of ${currentDPP.questions.length} questions.\n\nAre you sure you want to submit?`)) {
+                return;
+            }
+            
+            clearInterval(timerInterval);
+            const timeTaken = Math.floor((Date.now() - testStartTime) / 1000);
+            
+            // Calculate score
+            const marking = currentDPP.marking.split('/');
+            const correctMarks = parseInt(marking[0].replace('+', ''));
+            const incorrectMarks = parseInt(marking[1].replace('-', ''));
+            
+            let correct = 0;
+            let incorrect = 0;
+            let unattempted = 0;
+            
+            currentDPP.questions.forEach((q, i) => {
+                const userAns = userAnswers[i];
+                const correctAns = q.answer;
+                
+                if (!userAns) {
+                    unattempted++;
+                } else if (userAns === correctAns) {
+                    correct++;
+                } else {
+                    incorrect++;
+                }
+            });
+            
+            const score = (correct * correctMarks) - (incorrect * incorrectMarks);
+            const maxScore = currentDPP.questions.length * correctMarks;
+            
+            // Save attempt
+            const attempt = {
+                score,
+                maxScore,
+                correct,
+                incorrect,
+                unattempted,
+                timeTaken,
+                timestamp: new Date().toISOString(),
+                answers: userAnswers
+            };
+            
+            database.ref('dpps/' + currentDPP.id + '/attempts/' + currentUser).push(attempt);
+            
+            // Show results
+            showResults(score, maxScore, correct, incorrect, unattempted, timeTaken);
+            document.getElementById('testModal').classList.remove('active');
+        }
+
+        function showResults(score, maxScore, correct, incorrect, unattempted, timeTaken) {
+            document.getElementById('totalScore').textContent = `${score}/${maxScore}`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = incorrect;
+            document.getElementById('unattemptedCount').textContent = unattempted;
+            
+            const minutes = Math.floor(timeTaken / 60);
+            const seconds = timeTaken % 60;
+            document.getElementById('timeTaken').textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
+            
+            // Question-wise analysis
+            const reviewHTML = currentDPP.questions.map((q, i) => {
+                const userAns = userAnswers[i];
+                const correctAns = q.answer;
+                const isCorrect = userAns === correctAns;
+                const wasAttempted = !!userAns;
+                
+                let statusClass = wasAttempted ? (isCorrect ? 'correct' : 'incorrect') : '';
+                let statusText = wasAttempted ? (isCorrect ? '✅ Correct' : '❌ Incorrect') : '⚪ Not Attempted';
+                
+                return `
+                    <div class="question-review ${statusClass}">
+                        <div style="font-weight: 600; margin-bottom: 10px;">Q${i + 1}. ${q.text}</div>
+                        <div style="margin-bottom: 5px;">
+                            ${wasAttempted ? `Your Answer: ${userAns}` : 'Not attempted'}
+                        </div>
+                        <div style="color: #28a745; font-weight: 600;">
+                            Correct Answer: ${correctAns}
+                        </div>
+                        <div style="margin-top: 5px; font-weight: 600;">
+                            ${statusText}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('questionReview').innerHTML = reviewHTML;
+            document.getElementById('resultsModal').classList.add('active');
+        }
+
+        function closeResultsModal() {
+            document.getElementById('resultsModal').classList.remove('active');
+        }
     </script>
 </body>
 </html>
