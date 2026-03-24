@@ -39,28 +39,6 @@
             font-size: 1.1em;
         }
 
-        /* Loading Spinner */
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-            color: #718096;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         /* Tabs */
         .tabs {
             display: flex;
@@ -165,11 +143,6 @@
             margin-bottom: 15px;
             border-left: 4px solid #48bb78;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-        }
-
-        .chapter-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .chapter-header {
@@ -192,31 +165,6 @@
         .chapter-progress {
             font-size: 0.85em;
             color: #718096;
-            font-weight: 500;
-        }
-
-        .chapter-actions {
-            display: flex;
-            gap: 8px;
-            margin-left: 10px;
-        }
-
-        .icon-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2em;
-            padding: 5px;
-            color: #718096;
-            transition: color 0.2s;
-        }
-
-        .icon-btn:hover {
-            color: #667eea;
-        }
-
-        .icon-btn.delete:hover {
-            color: #f56565;
         }
 
         /* Lecture Item */
@@ -232,21 +180,10 @@
             margin-bottom: 10px;
             border-left: 3px solid #ed8936;
             position: relative;
-            transition: all 0.3s;
-        }
-
-        .lecture-item:hover {
-            background: #f1f3f5;
         }
 
         .lecture-item.dragging {
-            opacity: 0.4;
-            transform: scale(0.98);
-        }
-
-        .lecture-item.drag-over {
-            border-top: 3px solid #667eea;
-            padding-top: 15px;
+            opacity: 0.5;
         }
 
         .drag-handle {
@@ -255,7 +192,6 @@
             font-size: 1.2em;
             margin-right: 10px;
             display: inline-block;
-            user-select: none;
         }
 
         .drag-handle:active {
@@ -274,13 +210,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            flex: 1;
-        }
-
-        .lecture-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
         }
 
         .lecture-status {
@@ -303,15 +232,6 @@
         .status-completed {
             background: #c6f6d5;
             color: #276749;
-        }
-
-        .status-select {
-            padding: 6px 10px;
-            border-radius: 6px;
-            border: 1px solid #e2e8f0;
-            font-size: 0.9em;
-            cursor: pointer;
-            background: white;
         }
 
         /* DPP Inline Section */
@@ -380,8 +300,7 @@
         }
 
         .question-bubble:hover {
-            transform: scale(1.15);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transform: scale(1.1);
         }
 
         .q-unattempted {
@@ -402,6 +321,12 @@
         .q-marked {
             background: #ed8936;
             color: white;
+        }
+
+        .dpp-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         /* Resources Section */
@@ -435,7 +360,6 @@
         .resource-name {
             font-weight: 500;
             color: #2d3748;
-            flex: 1;
         }
 
         .resource-type {
@@ -444,7 +368,6 @@
             background: #e2e8f0;
             padding: 3px 10px;
             border-radius: 12px;
-            margin-right: 10px;
         }
 
         /* Buttons */
@@ -485,15 +408,6 @@
 
         .btn-success:hover {
             background: #38a169;
-        }
-
-        .btn-danger {
-            background: #f56565;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #e53e3e;
         }
 
         .btn-sm {
@@ -582,12 +496,6 @@
             border-color: #667eea;
         }
 
-        .error-message {
-            color: #f56565;
-            font-size: 0.85em;
-            margin-top: 5px;
-        }
-
         /* Add Content Buttons */
         .add-content-section {
             margin-top: 20px;
@@ -615,7 +523,7 @@
 
         /* Utility Classes */
         .hidden {
-            display: none !important;
+            display: none;
         }
 
         .collapsed > *:not(.subject-header):not(.chapter-header) {
@@ -645,20 +553,6 @@
             font-size: 1.2em;
             margin-bottom: 20px;
         }
-
-        /* Error Alert */
-        .error-alert {
-            background: #fed7d7;
-            color: #c53030;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .error-alert.show {
-            display: block;
-        }
     </style>
 </head>
 <body>
@@ -666,111 +560,81 @@
         <h1>📚 JEE Study Tracker</h1>
         <p class="subtitle">Organized • Structured • Efficient</p>
 
-        <div id="errorAlert" class="error-alert"></div>
-
         <!-- Navigation Tabs -->
         <div class="tabs">
-            <button class="tab active" onclick="app.switchTab(event, 'physics')">⚛️ Physics</button>
-            <button class="tab" onclick="app.switchTab(event, 'chemistry')">🧪 Chemistry</button>
-            <button class="tab" onclick="app.switchTab(event, 'maths')">📐 Mathematics</button>
+            <button class="tab active" onclick="switchTab('physics')">⚛️ Physics</button>
+            <button class="tab" onclick="switchTab('chemistry')">🧪 Chemistry</button>
+            <button class="tab" onclick="switchTab('maths')">📐 Mathematics</button>
         </div>
 
         <!-- Physics Tab -->
         <div id="physics-content" class="tab-content active">
-            <button class="btn btn-primary" onclick="app.addChapter('physics')">+ Add Chapter</button>
+            <button class="btn btn-primary" onclick="addChapter('physics')">+ Add Chapter</button>
             <div id="physics-chapters" class="mt-20">
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Loading chapters...</p>
-                </div>
+                <!-- Physics chapters will be rendered here -->
             </div>
         </div>
 
         <!-- Chemistry Tab -->
         <div id="chemistry-content" class="tab-content">
             <div class="tabs">
-                <button class="tab active" onclick="app.switchChemTab(event, 'physical')">Physical Chemistry</button>
-                <button class="tab" onclick="app.switchChemTab(event, 'inorganic')">Inorganic Chemistry</button>
-                <button class="tab" onclick="app.switchChemTab(event, 'organic')">Organic Chemistry</button>
+                <button class="tab active" onclick="switchChemTab('physical')">Physical Chemistry</button>
+                <button class="tab" onclick="switchChemTab('inorganic')">Inorganic Chemistry</button>
+                <button class="tab" onclick="switchChemTab('organic')">Organic Chemistry</button>
             </div>
 
             <div id="physical-content" class="tab-content active mt-20">
-                <button class="btn btn-primary" onclick="app.addChapter('physical')">+ Add Chapter</button>
-                <div id="physical-chapters" class="mt-20">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <p>Loading chapters...</p>
-                    </div>
-                </div>
+                <button class="btn btn-primary" onclick="addChapter('physical')">+ Add Chapter</button>
+                <div id="physical-chapters" class="mt-20"></div>
             </div>
 
             <div id="inorganic-content" class="tab-content mt-20">
-                <button class="btn btn-primary" onclick="app.addChapter('inorganic')">+ Add Chapter</button>
-                <div id="inorganic-chapters" class="mt-20">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <p>Loading chapters...</p>
-                    </div>
-                </div>
+                <button class="btn btn-primary" onclick="addChapter('inorganic')">+ Add Chapter</button>
+                <div id="inorganic-chapters" class="mt-20"></div>
             </div>
 
             <div id="organic-content" class="tab-content mt-20">
-                <button class="btn btn-primary" onclick="app.addChapter('organic')">+ Add Chapter</button>
-                <div id="organic-chapters" class="mt-20">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <p>Loading chapters...</p>
-                    </div>
-                </div>
+                <button class="btn btn-primary" onclick="addChapter('organic')">+ Add Chapter</button>
+                <div id="organic-chapters" class="mt-20"></div>
             </div>
         </div>
 
         <!-- Mathematics Tab -->
         <div id="maths-content" class="tab-content">
-            <button class="btn btn-primary" onclick="app.addChapter('maths')">+ Add Chapter</button>
-            <div id="maths-chapters" class="mt-20">
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Loading chapters...</p>
-                </div>
-            </div>
+            <button class="btn btn-primary" onclick="addChapter('maths')">+ Add Chapter</button>
+            <div id="maths-chapters" class="mt-20"></div>
         </div>
     </div>
 
-    <!-- Add/Edit Chapter Modal -->
-    <div id="chapterModal" class="modal">
+    <!-- Add Chapter Modal -->
+    <div id="addChapterModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="chapterModalTitle">Add New Chapter</h2>
-                <button class="close-btn" onclick="app.closeModal('chapterModal')">&times;</button>
+                <h2 class="modal-title">Add New Chapter</h2>
+                <button class="close-btn" onclick="closeModal('addChapterModal')">&times;</button>
             </div>
             <div class="form-group">
                 <label class="form-label">Chapter Name</label>
                 <input type="text" id="chapterName" class="form-input" placeholder="e.g., Electric Charges and Field">
-                <div id="chapterNameError" class="error-message hidden">Please enter a chapter name</div>
             </div>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn btn-primary" onclick="app.saveChapter()">Save Chapter</button>
-                <button class="btn btn-secondary" onclick="app.closeModal('chapterModal')">Cancel</button>
-            </div>
+            <button class="btn btn-primary" onclick="saveChapter()">Add Chapter</button>
         </div>
     </div>
 
-    <!-- Add/Edit Lecture Modal -->
-    <div id="lectureModal" class="modal">
+    <!-- Add Lecture Modal -->
+    <div id="addLectureModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="lectureModalTitle">Add New Lecture</h2>
-                <button class="close-btn" onclick="app.closeModal('lectureModal')">&times;</button>
+                <h2 class="modal-title">Add New Lecture</h2>
+                <button class="close-btn" onclick="closeModal('addLectureModal')">&times;</button>
             </div>
             <div class="form-group">
                 <label class="form-label">Lecture Name</label>
                 <input type="text" id="lectureName" class="form-input" placeholder="e.g., Lecture 01 - Introduction">
-                <div id="lectureNameError" class="error-message hidden">Please enter a lecture name</div>
             </div>
             <div class="form-group">
                 <label class="form-label">Has DPP?</label>
-                <select id="hasDPP" class="form-select" onchange="app.toggleDPPFields()">
+                <select id="hasDPP" class="form-select">
                     <option value="no">No DPP</option>
                     <option value="yes">Yes, has DPP</option>
                 </select>
@@ -778,28 +642,23 @@
             <div id="dppDetailsSection" class="hidden">
                 <div class="form-group">
                     <label class="form-label">DPP Number</label>
-                    <input type="number" id="dppNumber" class="form-input" placeholder="e.g., 03" min="1">
-                    <div id="dppNumberError" class="error-message hidden">Please enter a DPP number</div>
+                    <input type="number" id="dppNumber" class="form-input" placeholder="e.g., 03">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Total Questions</label>
-                    <input type="number" id="totalQuestions" class="form-input" placeholder="e.g., 10" min="1" max="100">
-                    <div id="totalQuestionsError" class="error-message hidden">Please enter a valid number (1-100)</div>
+                    <input type="number" id="totalQuestions" class="form-input" placeholder="e.g., 10">
                 </div>
             </div>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn btn-primary" onclick="app.saveLecture()">Save Lecture</button>
-                <button class="btn btn-secondary" onclick="app.closeModal('lectureModal')">Cancel</button>
-            </div>
+            <button class="btn btn-primary" onclick="saveLecture()">Add Lecture</button>
         </div>
     </div>
 
-    <!-- Add/Edit Resource Modal -->
-    <div id="resourceModal" class="modal">
+    <!-- Add Resource Modal -->
+    <div id="addResourceModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="resourceModalTitle">Add Resource</h2>
-                <button class="close-btn" onclick="app.closeModal('resourceModal')">&times;</button>
+                <h2 class="modal-title">Add Resource</h2>
+                <button class="close-btn" onclick="closeModal('addResourceModal')">&times;</button>
             </div>
             <div class="form-group">
                 <label class="form-label">Resource Type</label>
@@ -813,957 +672,571 @@
             <div class="form-group">
                 <label class="form-label">Resource Name</label>
                 <input type="text" id="resourceName" class="form-input" placeholder="e.g., JEE Advanced 2023 PYQs">
-                <div id="resourceNameError" class="error-message hidden">Please enter a resource name</div>
             </div>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn btn-primary" onclick="app.saveResource()">Save Resource</button>
-                <button class="btn btn-secondary" onclick="app.closeModal('resourceModal')">Cancel</button>
-            </div>
+            <button class="btn btn-primary" onclick="saveResource()">Add Resource</button>
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Confirm Delete</h2>
-                <button class="close-btn" onclick="app.closeModal('deleteModal')">&times;</button>
-            </div>
-            <p id="deleteMessage" style="margin-bottom: 20px; color: #4a5568;"></p>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn btn-danger" onclick="app.confirmDelete()">Delete</button>
-                <button class="btn btn-secondary" onclick="app.closeModal('deleteModal')">Cancel</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Load Firebase Scripts FIRST -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-
-    <!-- Main Application Script -->
     <script>
-        // Constants
-        const STATUS = {
-            PENDING: 'pending',
-            WATCHING: 'watching',
-            COMPLETED: 'completed'
-        };
-
-        const DPP_STATUS = {
-            NOT_ATTEMPTED: 'not-attempted',
-            ATTEMPTED: 'attempted',
-            COMPLETED: 'completed'
-        };
-
-        const QUESTION_STATE = {
-            UNATTEMPTED: 'unattempted',
-            CORRECT: 'correct',
-            INCORRECT: 'incorrect',
-            MARKED: 'marked'
-        };
-
-        const RESOURCE_TYPE_LABELS = {
-            'pyq': 'PYQ',
-            'questions': 'Question Sheet',
-            'notes': 'Notes',
-            'other': 'Other'
-        };
-
-        // Firebase Configuration
+        // Firebase configuration
         const firebaseConfig = {
-  apiKey: "AIzaSyBxDPSvCZF-UV_5IxaHH6mE4pwnaZdNadU",
-  authDomain: "jee-s-track.firebaseapp.com",
-  databaseURL: "https://jee-s-track-default-rtdb.firebaseio.com",
-  projectId: "jee-s-track",
-  storageBucket: "jee-s-track.firebasestorage.app",
-  messagingSenderId: "249533990944",
-  appId: "1:249533990944:web:36a6ae9a47b8a435549445"
-};
+            apiKey: "AIzaSyBxDPSvCZF-UV_5IxaHH6mE4pwnaZdNadU",
+            authDomain: "jee-s-track.firebaseapp.com",
+            databaseURL: "https://jee-s-track-default-rtdb.firebaseio.com",
+            projectId: "jee-s-track",
+            storageBucket: "jee-s-track.firebasestorage.app",
+            messagingSenderId: "249533990944",
+            appId: "1:249533990944:web:36a6ae9a47b8a435549445"
+        };
+
         // Initialize Firebase
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
         const db = firebase.database();
 
-        // Main Application Object
-        const app = {
-            // State
-            state: {
-                currentSubject: 'physics',
-                currentChemTab: 'physical',
-                editingChapterId: null,
-                editingLectureId: null,
-                editingResourceId: null,
-                deleteTarget: null,
-                listeners: {} // Store Firebase listeners for cleanup
-            },
+        // Global state
+        let currentSubject = 'physics';
+        let currentChemTab = 'physical';
+        let currentChapterId = null;
+        let currentLectureId = null;
 
-            // Initialize
-            init() {
-                this.loadChapters('physics');
-                this.loadChapters('physical');
-                this.loadChapters('inorganic');
-                this.loadChapters('organic');
-                this.loadChapters('maths');
-            },
+        // Tab switching
+        function switchTab(subject) {
+            currentSubject = subject;
+            document.querySelectorAll('.tabs .tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`${subject}-content`).classList.add('active');
+        }
 
-            // Error Handling
-            showError(message) {
-                const errorAlert = document.getElementById('errorAlert');
-                errorAlert.textContent = message;
-                errorAlert.classList.add('show');
-                setTimeout(() => {
-                    errorAlert.classList.remove('show');
-                }, 5000);
-            },
+        function switchChemTab(tab) {
+            currentChemTab = tab;
+            const chemTabs = document.querySelectorAll('#chemistry-content .tabs .tab');
+            chemTabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
 
-            // Tab Switching
-            switchTab(event, subject) {
-                if (event) {
-                    this.state.currentSubject = subject;
-                    
-                    // Update tab styles
-                    const tabs = document.querySelectorAll('.tabs > .tab');
-                    tabs.forEach(tab => tab.classList.remove('active'));
-                    event.target.classList.add('active');
-                    
-                    // Update content visibility
-                    const contents = ['physics-content', 'chemistry-content', 'maths-content'];
-                    contents.forEach(id => {
-                        document.getElementById(id).classList.remove('active');
-                    });
-                    document.getElementById(`${subject}-content`).classList.add('active');
-                }
-            },
+            ['physical', 'inorganic', 'organic'].forEach(type => {
+                document.getElementById(`${type}-content`).classList.remove('active');
+            });
+            document.getElementById(`${tab}-content`).classList.add('active');
+        }
 
-            switchChemTab(event, tab) {
-                if (event) {
-                    this.state.currentChemTab = tab;
-                    
-                    // Update tab styles
-                    const chemTabs = document.querySelectorAll('#chemistry-content .tabs .tab');
-                    chemTabs.forEach(t => t.classList.remove('active'));
-                    event.target.classList.add('active');
-                    
-                    // Update content visibility
-                    ['physical', 'inorganic', 'organic'].forEach(type => {
-                        document.getElementById(`${type}-content`).classList.remove('active');
-                    });
-                    document.getElementById(`${tab}-content`).classList.add('active');
-                }
-            },
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
 
-            // Modal Management
-            openModal(modalId) {
-                document.getElementById(modalId).classList.add('active');
-            },
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
 
-            closeModal(modalId) {
-                document.getElementById(modalId).classList.remove('active');
-                this.clearModalErrors();
-            },
+        // DPP field toggle
+        document.getElementById('hasDPP').addEventListener('change', (e) => {
+            const dppSection = document.getElementById('dppDetailsSection');
+            if (e.target.value === 'yes') {
+                dppSection.classList.remove('hidden');
+            } else {
+                dppSection.classList.add('hidden');
+            }
+        });
 
-            clearModalErrors() {
-                document.querySelectorAll('.error-message').forEach(el => {
-                    el.classList.add('hidden');
-                });
-            },
+        // Add Chapter
+        function addChapter(subject) {
+            currentSubject = subject;
+            currentChapterId = null;
+            document.getElementById('chapterName').value = '';
+            openModal('addChapterModal');
+        }
 
-            toggleDPPFields() {
-                const hasDPP = document.getElementById('hasDPP').value === 'yes';
-                const dppSection = document.getElementById('dppDetailsSection');
-                if (hasDPP) {
-                    dppSection.classList.remove('hidden');
-                } else {
-                    dppSection.classList.add('hidden');
-                }
-            },
+        function saveChapter() {
+            const chapterName = document.getElementById('chapterName').value.trim();
+            if (!chapterName) {
+                alert('Please enter a chapter name');
+                return;
+            }
 
-            // Validation
-            validateChapter(name) {
-                if (!name || name.trim().length === 0) {
-                    document.getElementById('chapterNameError').classList.remove('hidden');
-                    return false;
-                }
-                return true;
-            },
+            const subject = currentSubject === 'chemistry' ? currentChemTab : currentSubject;
+            const chapterId = Date.now().toString();
+            
+            db.ref(`chapters/${subject}/${chapterId}`).set({
+                name: chapterName,
+                subject: subject,
+                createdAt: Date.now(),
+                order: Date.now()
+            }).then(() => {
+                closeModal('addChapterModal');
+                loadChapters(subject);
+            });
+        }
 
-            validateLecture(name, hasDPP, dppNumber, totalQuestions) {
-                let isValid = true;
+        // Add Lecture
+        function addLecture(chapterId) {
+            currentChapterId = chapterId;
+            document.getElementById('lectureName').value = '';
+            document.getElementById('hasDPP').value = 'no';
+            document.getElementById('dppDetailsSection').classList.add('hidden');
+            document.getElementById('dppNumber').value = '';
+            document.getElementById('totalQuestions').value = '';
+            openModal('addLectureModal');
+        }
 
-                if (!name || name.trim().length === 0) {
-                    document.getElementById('lectureNameError').classList.remove('hidden');
-                    isValid = false;
-                }
+        function saveLecture() {
+            const lectureName = document.getElementById('lectureName').value.trim();
+            const hasDPP = document.getElementById('hasDPP').value === 'yes';
+            
+            if (!lectureName) {
+                alert('Please enter a lecture name');
+                return;
+            }
 
-                if (hasDPP) {
-                    if (!dppNumber || dppNumber < 1) {
-                        document.getElementById('dppNumberError').classList.remove('hidden');
-                        isValid = false;
-                    }
-                    if (!totalQuestions || totalQuestions < 1 || totalQuestions > 100) {
-                        document.getElementById('totalQuestionsError').classList.remove('hidden');
-                        isValid = false;
-                    }
-                }
+            const lectureId = Date.now().toString();
+            const lectureData = {
+                name: lectureName,
+                chapterId: currentChapterId,
+                status: 'pending',
+                createdAt: Date.now(),
+                order: Date.now()
+            };
 
-                return isValid;
-            },
-
-            validateResource(name) {
-                if (!name || name.trim().length === 0) {
-                    document.getElementById('resourceNameError').classList.remove('hidden');
-                    return false;
-                }
-                return true;
-            },
-
-            // Chapter Management
-            addChapter(subject) {
-                this.state.currentSubject = subject;
-                this.state.editingChapterId = null;
-                
-                document.getElementById('chapterModalTitle').textContent = 'Add New Chapter';
-                document.getElementById('chapterName').value = '';
-                this.clearModalErrors();
-                this.openModal('chapterModal');
-            },
-
-            editChapter(chapterId, subject) {
-                this.state.editingChapterId = chapterId;
-                this.state.currentSubject = subject;
-                
-                db.ref(`chapters/${subject}/${chapterId}`).once('value')
-                    .then(snapshot => {
-                        const chapter = snapshot.val();
-                        document.getElementById('chapterModalTitle').textContent = 'Edit Chapter';
-                        document.getElementById('chapterName').value = chapter.name;
-                        this.clearModalErrors();
-                        this.openModal('chapterModal');
-                    })
-                    .catch(error => {
-                        this.showError('Failed to load chapter: ' + error.message);
-                    });
-            },
-
-            saveChapter() {
-                const name = document.getElementById('chapterName').value.trim();
-                
-                if (!this.validateChapter(name)) {
-                    return;
-                }
-
-                const subject = this.state.currentSubject;
-                const chapterId = this.state.editingChapterId || Date.now().toString();
-                
-                const chapterData = {
-                    name: name,
-                    subject: subject,
-                    updatedAt: Date.now()
-                };
-
-                if (!this.state.editingChapterId) {
-                    chapterData.createdAt = Date.now();
-                    chapterData.order = Date.now();
-                }
-
-                db.ref(`chapters/${subject}/${chapterId}`).update(chapterData)
-                    .then(() => {
-                        this.closeModal('chapterModal');
-                    })
-                    .catch(error => {
-                        this.showError('Failed to save chapter: ' + error.message);
-                    });
-            },
-
-            deleteChapter(chapterId, subject, chapterName) {
-                this.state.deleteTarget = {
-                    type: 'chapter',
-                    id: chapterId,
-                    subject: subject
-                };
-                
-                document.getElementById('deleteMessage').textContent = 
-                    `Are you sure you want to delete "${chapterName}"? This will also delete all lectures and resources in this chapter.`;
-                
-                this.openModal('deleteModal');
-            },
-
-            // Lecture Management
-            addLecture(chapterId, subject) {
-                this.state.editingChapterId = chapterId;
-                this.state.editingLectureId = null;
-                this.state.currentSubject = subject;
-                
-                document.getElementById('lectureModalTitle').textContent = 'Add New Lecture';
-                document.getElementById('lectureName').value = '';
-                document.getElementById('hasDPP').value = 'no';
-                document.getElementById('dppNumber').value = '';
-                document.getElementById('totalQuestions').value = '';
-                document.getElementById('dppDetailsSection').classList.add('hidden');
-                this.clearModalErrors();
-                this.openModal('lectureModal');
-            },
-
-            editLecture(chapterId, lectureId, subject) {
-                this.state.editingChapterId = chapterId;
-                this.state.editingLectureId = lectureId;
-                this.state.currentSubject = subject;
-                
-                db.ref(`lectures/${chapterId}/${lectureId}`).once('value')
-                    .then(snapshot => {
-                        const lecture = snapshot.val();
-                        document.getElementById('lectureModalTitle').textContent = 'Edit Lecture';
-                        document.getElementById('lectureName').value = lecture.name;
-                        
-                        if (lecture.dpp) {
-                            document.getElementById('hasDPP').value = 'yes';
-                            document.getElementById('dppNumber').value = lecture.dpp.number;
-                            document.getElementById('totalQuestions').value = lecture.dpp.totalQuestions;
-                            document.getElementById('dppDetailsSection').classList.remove('hidden');
-                        } else {
-                            document.getElementById('hasDPP').value = 'no';
-                            document.getElementById('dppDetailsSection').classList.add('hidden');
-                        }
-                        
-                        this.clearModalErrors();
-                        this.openModal('lectureModal');
-                    })
-                    .catch(error => {
-                        this.showError('Failed to load lecture: ' + error.message);
-                    });
-            },
-
-            saveLecture() {
-                const name = document.getElementById('lectureName').value.trim();
-                const hasDPP = document.getElementById('hasDPP').value === 'yes';
+            if (hasDPP) {
                 const dppNumber = document.getElementById('dppNumber').value;
                 const totalQuestions = parseInt(document.getElementById('totalQuestions').value);
                 
-                if (!this.validateLecture(name, hasDPP, dppNumber, totalQuestions)) {
+                if (!dppNumber || !totalQuestions) {
+                    alert('Please fill in DPP details');
                     return;
                 }
 
-                const chapterId = this.state.editingChapterId;
-                const lectureId = this.state.editingLectureId || Date.now().toString();
-                
-                const lectureData = {
-                    name: name,
-                    chapterId: chapterId,
-                    updatedAt: Date.now()
+                lectureData.dpp = {
+                    number: dppNumber,
+                    totalQuestions: totalQuestions,
+                    questions: {},
+                    status: 'not-attempted'
                 };
 
-                if (!this.state.editingLectureId) {
-                    lectureData.status = STATUS.PENDING;
-                    lectureData.createdAt = Date.now();
-                    lectureData.order = Date.now();
+                // Initialize question states
+                for (let i = 1; i <= totalQuestions; i++) {
+                    lectureData.dpp.questions[i] = 'unattempted';
                 }
-
-                if (hasDPP) {
-                    lectureData.dpp = {
-                        number: dppNumber,
-                        totalQuestions: totalQuestions,
-                        status: DPP_STATUS.NOT_ATTEMPTED,
-                        questions: {}
-                    };
-
-                    // Initialize question states
-                    for (let i = 1; i <= totalQuestions; i++) {
-                        lectureData.dpp.questions[i] = QUESTION_STATE.UNATTEMPTED;
-                    }
-                }
-
-                db.ref(`lectures/${chapterId}/${lectureId}`).update(lectureData)
-                    .then(() => {
-                        this.closeModal('lectureModal');
-                    })
-                    .catch(error => {
-                        this.showError('Failed to save lecture: ' + error.message);
-                    });
-            },
-
-            deleteLecture(chapterId, lectureId, subject, lectureName) {
-                this.state.deleteTarget = {
-                    type: 'lecture',
-                    chapterId: chapterId,
-                    id: lectureId,
-                    subject: subject
-                };
-                
-                document.getElementById('deleteMessage').textContent = 
-                    `Are you sure you want to delete "${lectureName}"?`;
-                
-                this.openModal('deleteModal');
-            },
-
-            updateLectureStatus(chapterId, lectureId, status) {
-                db.ref(`lectures/${chapterId}/${lectureId}/status`).set(status)
-                    .catch(error => {
-                        this.showError('Failed to update status: ' + error.message);
-                    });
-            },
-
-            // Resource Management
-            addResource(chapterId, subject) {
-                this.state.editingChapterId = chapterId;
-                this.state.editingResourceId = null;
-                this.state.currentSubject = subject;
-                
-                document.getElementById('resourceModalTitle').textContent = 'Add Resource';
-                document.getElementById('resourceType').value = 'pyq';
-                document.getElementById('resourceName').value = '';
-                this.clearModalErrors();
-                this.openModal('resourceModal');
-            },
-
-            editResource(chapterId, resourceId, subject) {
-                this.state.editingChapterId = chapterId;
-                this.state.editingResourceId = resourceId;
-                this.state.currentSubject = subject;
-                
-                db.ref(`resources/${chapterId}/${resourceId}`).once('value')
-                    .then(snapshot => {
-                        const resource = snapshot.val();
-                        document.getElementById('resourceModalTitle').textContent = 'Edit Resource';
-                        document.getElementById('resourceType').value = resource.type;
-                        document.getElementById('resourceName').value = resource.name;
-                        this.clearModalErrors();
-                        this.openModal('resourceModal');
-                    })
-                    .catch(error => {
-                        this.showError('Failed to load resource: ' + error.message);
-                    });
-            },
-
-            saveResource() {
-                const type = document.getElementById('resourceType').value;
-                const name = document.getElementById('resourceName').value.trim();
-                
-                if (!this.validateResource(name)) {
-                    return;
-                }
-
-                const chapterId = this.state.editingChapterId;
-                const resourceId = this.state.editingResourceId || Date.now().toString();
-                
-                const resourceData = {
-                    type: type,
-                    name: name,
-                    updatedAt: Date.now()
-                };
-
-                if (!this.state.editingResourceId) {
-                    resourceData.createdAt = Date.now();
-                }
-
-                db.ref(`resources/${chapterId}/${resourceId}`).update(resourceData)
-                    .then(() => {
-                        this.closeModal('resourceModal');
-                    })
-                    .catch(error => {
-                        this.showError('Failed to save resource: ' + error.message);
-                    });
-            },
-
-            deleteResource(chapterId, resourceId, subject, resourceName) {
-                this.state.deleteTarget = {
-                    type: 'resource',
-                    chapterId: chapterId,
-                    id: resourceId,
-                    subject: subject
-                };
-                
-                document.getElementById('deleteMessage').textContent = 
-                    `Are you sure you want to delete "${resourceName}"?`;
-                
-                this.openModal('deleteModal');
-            },
-
-            // Delete Confirmation
-            confirmDelete() {
-                const target = this.state.deleteTarget;
-                if (!target) return;
-
-                let deleteRef;
-                if (target.type === 'chapter') {
-                    deleteRef = db.ref(`chapters/${target.subject}/${target.id}`);
-                    
-                    // Also delete all lectures and resources
-                    db.ref(`lectures/${target.id}`).remove().catch(err => console.error(err));
-                    db.ref(`resources/${target.id}`).remove().catch(err => console.error(err));
-                    
-                } else if (target.type === 'lecture') {
-                    deleteRef = db.ref(`lectures/${target.chapterId}/${target.id}`);
-                } else if (target.type === 'resource') {
-                    deleteRef = db.ref(`resources/${target.chapterId}/${target.id}`);
-                }
-
-                deleteRef.remove()
-                    .then(() => {
-                        this.closeModal('deleteModal');
-                        this.state.deleteTarget = null;
-                    })
-                    .catch(error => {
-                        this.showError('Failed to delete: ' + error.message);
-                    });
-            },
-
-            // DPP Functions
-            toggleQuestion(chapterId, lectureId, questionNum) {
-                const questionRef = db.ref(`lectures/${chapterId}/${lectureId}/dpp/questions/${questionNum}`);
-                
-                questionRef.once('value')
-                    .then(snapshot => {
-                        const currentState = snapshot.val();
-                        let newState;
-                        
-                        if (currentState === QUESTION_STATE.UNATTEMPTED) {
-                            newState = QUESTION_STATE.CORRECT;
-                        } else if (currentState === QUESTION_STATE.CORRECT) {
-                            newState = QUESTION_STATE.INCORRECT;
-                        } else if (currentState === QUESTION_STATE.INCORRECT) {
-                            newState = QUESTION_STATE.MARKED;
-                        } else {
-                            newState = QUESTION_STATE.UNATTEMPTED;
-                        }
-                        
-                        return questionRef.set(newState);
-                    })
-                    .then(() => {
-                        this.updateDPPStatus(chapterId, lectureId);
-                    })
-                    .catch(error => {
-                        this.showError('Failed to update question: ' + error.message);
-                    });
-            },
-
-            updateDPPStatus(chapterId, lectureId) {
-                const questionsRef = db.ref(`lectures/${chapterId}/${lectureId}/dpp/questions`);
-                
-                questionsRef.once('value')
-                    .then(snapshot => {
-                        const questions = snapshot.val();
-                        let hasAttempted = false;
-                        let allAnswered = true;
-                        
-                        Object.values(questions).forEach(state => {
-                            if (state !== QUESTION_STATE.UNATTEMPTED) {
-                                hasAttempted = true;
-                            }
-                            if (state === QUESTION_STATE.UNATTEMPTED) {
-                                allAnswered = false;
-                            }
-                        });
-
-                        let dppStatus;
-                        if (!hasAttempted) {
-                            dppStatus = DPP_STATUS.NOT_ATTEMPTED;
-                        } else if (allAnswered) {
-                            dppStatus = DPP_STATUS.COMPLETED;
-                            // Trigger confetti
-                            confetti({
-                                particleCount: 100,
-                                spread: 70,
-                                origin: { y: 0.6 }
-                            });
-                        } else {
-                            dppStatus = DPP_STATUS.ATTEMPTED;
-                        }
-
-                        return db.ref(`lectures/${chapterId}/${lectureId}/dpp/status`).set(dppStatus);
-                    })
-                    .catch(error => {
-                        this.showError('Failed to update DPP status: ' + error.message);
-                    });
-            },
-
-            // Data Loading with Real-time Updates
-            loadChapters(subject) {
-                const containerId = `${subject}-chapters`;
-                const container = document.getElementById(containerId);
-                if (!container) return;
-
-                // Clean up previous listener if exists
-                if (this.state.listeners[subject]) {
-                    db.ref(`chapters/${subject}`).off('value', this.state.listeners[subject]);
-                }
-
-                // Set up real-time listener
-                const listener = db.ref(`chapters/${subject}`).on('value', 
-                    (snapshot) => {
-                        const chapters = [];
-                        snapshot.forEach((childSnapshot) => {
-                            chapters.push({
-                                id: childSnapshot.key,
-                                ...childSnapshot.val()
-                            });
-                        });
-
-                        // Sort by order
-                        chapters.sort((a, b) => (a.order || 0) - (b.order || 0));
-
-                        this.renderChapters(subject, chapters);
-                    },
-                    (error) => {
-                        this.showError('Failed to load chapters: ' + error.message);
-                        container.innerHTML = `
-                            <div class="empty-state">
-                                <div class="empty-state-icon">⚠️</div>
-                                <div class="empty-state-text">Failed to load chapters</div>
-                                <p style="color: #f56565;">${error.message}</p>
-                            </div>
-                        `;
-                    }
-                );
-
-                this.state.listeners[subject] = listener;
-            },
-
-            renderChapters(subject, chapters) {
-                const containerId = `${subject}-chapters`;
-                const container = document.getElementById(containerId);
-                
-                if (!container) return;
-
-                if (chapters.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">📖</div>
-                            <div class="empty-state-text">No chapters added yet</div>
-                            <p style="color: #a0aec0;">Click "Add Chapter" to get started</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                container.innerHTML = '';
-
-                chapters.forEach(chapter => {
-                    const chapterCard = document.createElement('div');
-                    chapterCard.className = 'chapter-card';
-                    chapterCard.innerHTML = `
-                        <div class="chapter-header" onclick="app.toggleSection(this)">
-                            <div class="chapter-title">
-                                <span class="collapse-icon">▼</span>
-                                📚 ${chapter.name}
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 15px;">
-                                <div class="chapter-progress" id="progress-${chapter.id}">Loading...</div>
-                                <div class="chapter-actions">
-                                    <button class="icon-btn" onclick="event.stopPropagation(); app.editChapter('${chapter.id}', '${subject}')" title="Edit Chapter">✏️</button>
-                                    <button class="icon-btn delete" onclick="event.stopPropagation(); app.deleteChapter('${chapter.id}', '${subject}', '${chapter.name}')" title="Delete Chapter">🗑️</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="lecture-section" id="lectures-${chapter.id}">
-                            <div class="loading">
-                                <div class="spinner"></div>
-                                <p>Loading lectures...</p>
-                            </div>
-                        </div>
-                        <div class="add-content-section">
-                            <button class="add-btn" onclick="app.addLecture('${chapter.id}', '${subject}')">+ Add Lecture</button>
-                            <button class="add-btn" onclick="app.addResource('${chapter.id}', '${subject}')">+ Add Resource</button>
-                        </div>
-                        <div class="resources-section hidden" id="resources-${chapter.id}"></div>
-                    `;
-                    container.appendChild(chapterCard);
-
-                    // Load lectures and resources with real-time updates
-                    this.loadLectures(chapter.id, subject);
-                    this.loadResources(chapter.id);
-                });
-            },
-
-            toggleSection(element) {
-                element.parentElement.classList.toggle('collapsed');
-            },
-
-            loadLectures(chapterId, subject) {
-                // Clean up previous listener
-                const listenerKey = `lectures-${chapterId}`;
-                if (this.state.listeners[listenerKey]) {
-                    db.ref(`lectures/${chapterId}`).off('value', this.state.listeners[listenerKey]);
-                }
-
-                const listener = db.ref(`lectures/${chapterId}`).on('value',
-                    (snapshot) => {
-                        const lectures = [];
-                        snapshot.forEach((childSnapshot) => {
-                            lectures.push({
-                                id: childSnapshot.key,
-                                ...childSnapshot.val()
-                            });
-                        });
-
-                        // Sort by order
-                        lectures.sort((a, b) => (a.order || 0) - (b.order || 0));
-
-                        this.renderLectures(chapterId, subject, lectures);
-                    },
-                    (error) => {
-                        this.showError('Failed to load lectures: ' + error.message);
-                    }
-                );
-
-                this.state.listeners[listenerKey] = listener;
-            },
-
-            renderLectures(chapterId, subject, lectures) {
-                const container = document.getElementById(`lectures-${chapterId}`);
-                if (!container) return;
-
-                // Update chapter progress
-                const totalLectures = lectures.length;
-                const completedLectures = lectures.filter(l => l.status === STATUS.COMPLETED).length;
-                const progressEl = document.getElementById(`progress-${chapterId}`);
-                if (progressEl) {
-                    progressEl.textContent = `${completedLectures}/${totalLectures} lectures`;
-                }
-
-                if (lectures.length === 0) {
-                    container.innerHTML = '<p style="color: #a0aec0; padding: 20px 0;">No lectures added yet</p>';
-                    return;
-                }
-
-                container.innerHTML = '';
-
-                lectures.forEach((lecture, index) => {
-                    const lectureItem = document.createElement('div');
-                    lectureItem.className = 'lecture-item';
-                    lectureItem.draggable = true;
-                    lectureItem.dataset.lectureId = lecture.id;
-                    lectureItem.dataset.order = lecture.order || index;
-
-                    let statusClass = 'status-pending';
-                    let statusText = 'Not Started';
-                    if (lecture.status === STATUS.WATCHING) {
-                        statusClass = 'status-watching';
-                        statusText = 'Watching';
-                    } else if (lecture.status === STATUS.COMPLETED) {
-                        statusClass = 'status-completed';
-                        statusText = 'Completed';
-                    }
-
-                    let dppHTML = '';
-                    if (lecture.dpp) {
-                        const questions = lecture.dpp.questions || {};
-                        const totalQuestions = lecture.dpp.totalQuestions || Object.keys(questions).length;
-                        
-                        let dppStatusClass = 'dpp-not-attempted';
-                        let dppStatusText = 'Not Attempted';
-                        
-                        if (lecture.dpp.status === DPP_STATUS.ATTEMPTED) {
-                            dppStatusClass = 'dpp-attempted';
-                            dppStatusText = 'In Progress';
-                        } else if (lecture.dpp.status === DPP_STATUS.COMPLETED) {
-                            dppStatusClass = 'dpp-completed';
-                            dppStatusText = 'Completed ✓';
-                        }
-
-                        let questionsHTML = '';
-                        for (let i = 1; i <= totalQuestions; i++) {
-                            const state = questions[i] || QUESTION_STATE.UNATTEMPTED;
-                            let qClass = 'q-unattempted';
-                            if (state === QUESTION_STATE.CORRECT) qClass = 'q-correct';
-                            else if (state === QUESTION_STATE.INCORRECT) qClass = 'q-incorrect';
-                            else if (state === QUESTION_STATE.MARKED) qClass = 'q-marked';
-
-                            questionsHTML += `
-                                <div class="question-bubble ${qClass}" 
-                                     onclick="app.toggleQuestion('${chapterId}', '${lecture.id}', ${i})"
-                                     title="Question ${i}">
-                                    ${i}
-                                </div>
-                            `;
-                        }
-
-                        dppHTML = `
-                            <div class="dpp-inline">
-                                <div class="dpp-header">
-                                    <div class="dpp-title">📝 DPP-${lecture.dpp.number}</div>
-                                    <div class="dpp-status ${dppStatusClass}">${dppStatusText}</div>
-                                </div>
-                                <div class="dpp-questions">
-                                    ${questionsHTML}
-                                </div>
-                                <p style="font-size: 0.85em; color: #718096; margin-top: 10px;">
-                                    Click to cycle: Unattempted → Correct → Incorrect → Review → Unattempted
-                                </p>
-                            </div>
-                        `;
-                    }
-
-                    lectureItem.innerHTML = `
-                        <div class="lecture-header">
-                            <div class="lecture-title">
-                                <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
-                                🎥 ${lecture.name}
-                            </div>
-                            <div class="lecture-controls">
-                                <div class="lecture-status ${statusClass}">${statusText}</div>
-                                <select class="status-select" onchange="app.updateLectureStatus('${chapterId}', '${lecture.id}', this.value)">
-                                    <option value="${STATUS.PENDING}" ${lecture.status === STATUS.PENDING ? 'selected' : ''}>Not Started</option>
-                                    <option value="${STATUS.WATCHING}" ${lecture.status === STATUS.WATCHING ? 'selected' : ''}>Watching</option>
-                                    <option value="${STATUS.COMPLETED}" ${lecture.status === STATUS.COMPLETED ? 'selected' : ''}>Completed</option>
-                                </select>
-                                <button class="icon-btn" onclick="app.editLecture('${chapterId}', '${lecture.id}', '${subject}')" title="Edit Lecture">✏️</button>
-                                <button class="icon-btn delete" onclick="app.deleteLecture('${chapterId}', '${lecture.id}', '${subject}', '${lecture.name}')" title="Delete Lecture">🗑️</button>
-                            </div>
-                        </div>
-                        ${dppHTML}
-                    `;
-
-                    container.appendChild(lectureItem);
-
-                    // Add drag-and-drop
-                    this.setupDragAndDrop(lectureItem, chapterId);
-                });
-            },
-
-            // Drag and Drop
-            setupDragAndDrop(element, chapterId) {
-                element.addEventListener('dragstart', (e) => {
-                    element.classList.add('dragging');
-                    e.dataTransfer.effectAllowed = 'move';
-                });
-
-                element.addEventListener('dragend', (e) => {
-                    element.classList.remove('dragging');
-                    document.querySelectorAll('.lecture-item').forEach(item => {
-                        item.classList.remove('drag-over');
-                    });
-                });
-
-                element.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    const dragging = document.querySelector('.dragging');
-                    if (!dragging || dragging === element) return;
-
-                    const container = element.parentElement;
-                    const afterElement = this.getDragAfterElement(container, e.clientY);
-                    
-                    // Remove drag-over class from all items
-                    container.querySelectorAll('.lecture-item').forEach(item => {
-                        item.classList.remove('drag-over');
-                    });
-
-                    if (afterElement == null) {
-                        container.appendChild(dragging);
-                        element.classList.add('drag-over');
-                    } else {
-                        container.insertBefore(dragging, afterElement);
-                        afterElement.classList.add('drag-over');
-                    }
-                });
-
-                element.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    this.updateLectureOrder(chapterId);
-                });
-            },
-
-            getDragAfterElement(container, y) {
-                const draggableElements = [...container.querySelectorAll('.lecture-item:not(.dragging)')];
-
-                return draggableElements.reduce((closest, child) => {
-                    const box = child.getBoundingClientRect();
-                    const offset = y - box.top - box.height / 2;
-
-                    if (offset < 0 && offset > closest.offset) {
-                        return { offset: offset, element: child };
-                    } else {
-                        return closest;
-                    }
-                }, { offset: Number.NEGATIVE_INFINITY }).element;
-            },
-
-            updateLectureOrder(chapterId) {
-                const container = document.getElementById(`lectures-${chapterId}`);
-                if (!container) return;
-
-                const lectureItems = container.querySelectorAll('.lecture-item');
-                
-                const updates = {};
-                lectureItems.forEach((item, index) => {
-                    const lectureId = item.dataset.lectureId;
-                    updates[`lectures/${chapterId}/${lectureId}/order`] = index;
-                });
-
-                db.ref().update(updates)
-                    .catch(error => {
-                        this.showError('Failed to update order: ' + error.message);
-                    });
-            },
-
-            loadResources(chapterId) {
-                // Clean up previous listener
-                const listenerKey = `resources-${chapterId}`;
-                if (this.state.listeners[listenerKey]) {
-                    db.ref(`resources/${chapterId}`).off('value', this.state.listeners[listenerKey]);
-                }
-
-                const listener = db.ref(`resources/${chapterId}`).on('value',
-                    (snapshot) => {
-                        const resources = [];
-                        snapshot.forEach((childSnapshot) => {
-                            resources.push({
-                                id: childSnapshot.key,
-                                ...childSnapshot.val()
-                            });
-                        });
-
-                        if (resources.length > 0) {
-                            this.renderResources(chapterId, resources);
-                        } else {
-                            const container = document.getElementById(`resources-${chapterId}`);
-                            if (container) {
-                                container.classList.add('hidden');
-                            }
-                        }
-                    },
-                    (error) => {
-                        console.error('Failed to load resources:', error);
-                    }
-                );
-
-                this.state.listeners[listenerKey] = listener;
-            },
-
-            renderResources(chapterId, resources) {
-                const container = document.getElementById(`resources-${chapterId}`);
-                if (!container) return;
-
-                container.classList.remove('hidden');
-                
-                let resourcesHTML = '<div class="resources-title">📦 Additional Resources</div>';
-                
-                resources.forEach(resource => {
-                    const typeLabel = RESOURCE_TYPE_LABELS[resource.type] || 'Other';
-                    const subject = this.state.currentSubject;
-
-                    resourcesHTML += `
-                        <div class="resource-item">
-                            <div class="resource-name">${resource.name}</div>
-                            <div style="display: flex; gap: 10px; align-items: center;">
-                                <div class="resource-type">${typeLabel}</div>
-                                <button class="icon-btn" onclick="app.editResource('${chapterId}', '${resource.id}', '${subject}')" title="Edit Resource">✏️</button>
-                                <button class="icon-btn delete" onclick="app.deleteResource('${chapterId}', '${resource.id}', '${subject}', '${resource.name}')" title="Delete Resource">🗑️</button>
-                            </div>
-                        </div>
-                    `;
-                });
-
-                container.innerHTML = resourcesHTML;
             }
-        };
 
-        // Initialize app when DOM is ready
+            db.ref(`lectures/${currentChapterId}/${lectureId}`).set(lectureData).then(() => {
+                closeModal('addLectureModal');
+                const subject = currentSubject === 'chemistry' ? currentChemTab : currentSubject;
+                loadChapters(subject);
+            });
+        }
+
+        // Add Resource
+        function addResource(chapterId) {
+            currentChapterId = chapterId;
+            document.getElementById('resourceType').value = 'pyq';
+            document.getElementById('resourceName').value = '';
+            openModal('addResourceModal');
+        }
+
+        function saveResource() {
+            const resourceType = document.getElementById('resourceType').value;
+            const resourceName = document.getElementById('resourceName').value.trim();
+            
+            if (!resourceName) {
+                alert('Please enter a resource name');
+                return;
+            }
+
+            const resourceId = Date.now().toString();
+            db.ref(`resources/${currentChapterId}/${resourceId}`).set({
+                type: resourceType,
+                name: resourceName,
+                createdAt: Date.now()
+            }).then(() => {
+                closeModal('addResourceModal');
+                const subject = currentSubject === 'chemistry' ? currentChemTab : currentSubject;
+                loadChapters(subject);
+            });
+        }
+
+        // Toggle sections
+        function toggleSection(element) {
+            element.parentElement.classList.toggle('collapsed');
+        }
+
+        // Update lecture status
+        function updateLectureStatus(chapterId, lectureId, status) {
+            db.ref(`lectures/${chapterId}/${lectureId}/status`).set(status).then(() => {
+                const subject = currentSubject === 'chemistry' ? currentChemTab : currentSubject;
+                loadChapters(subject);
+            });
+        }
+
+        // Toggle question answer
+        function toggleQuestion(chapterId, lectureId, questionNum) {
+            const questionRef = db.ref(`lectures/${chapterId}/${lectureId}/dpp/questions/${questionNum}`);
+            
+            questionRef.once('value', (snapshot) => {
+                const currentState = snapshot.val();
+                let newState;
+                
+                if (currentState === 'unattempted') {
+                    newState = 'correct';
+                } else if (currentState === 'correct') {
+                    newState = 'incorrect';
+                } else if (currentState === 'incorrect') {
+                    newState = 'marked';
+                } else {
+                    newState = 'unattempted';
+                }
+                
+                questionRef.set(newState).then(() => {
+                    updateDPPStatus(chapterId, lectureId);
+                });
+            });
+        }
+
+        // Update DPP status
+        function updateDPPStatus(chapterId, lectureId) {
+            const questionsRef = db.ref(`lectures/${chapterId}/${lectureId}/dpp/questions`);
+            
+            questionsRef.once('value', (snapshot) => {
+                const questions = snapshot.val();
+                let hasAttempted = false;
+                let allAnswered = true;
+                
+                Object.values(questions).forEach(state => {
+                    if (state !== 'unattempted') {
+                        hasAttempted = true;
+                    }
+                    if (state === 'unattempted') {
+                        allAnswered = false;
+                    }
+                });
+
+                let dppStatus;
+                if (!hasAttempted) {
+                    dppStatus = 'not-attempted';
+                } else if (allAnswered) {
+                    dppStatus = 'completed';
+                    // Trigger confetti
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                } else {
+                    dppStatus = 'attempted';
+                }
+
+                db.ref(`lectures/${chapterId}/${lectureId}/dpp/status`).set(dppStatus).then(() => {
+                    const subject = currentSubject === 'chemistry' ? currentChemTab : currentSubject;
+                    loadChapters(subject);
+                });
+            });
+        }
+
+        // Load and render chapters
+        function loadChapters(subject) {
+            const chaptersRef = db.ref(`chapters/${subject}`);
+            
+            chaptersRef.once('value', (snapshot) => {
+                const chapters = [];
+                snapshot.forEach((childSnapshot) => {
+                    chapters.push({
+                        id: childSnapshot.key,
+                        ...childSnapshot.val()
+                    });
+                });
+
+                // Sort by order
+                chapters.sort((a, b) => a.order - b.order);
+
+                renderChapters(subject, chapters);
+            });
+        }
+
+        function renderChapters(subject, chapters) {
+            const containerId = `${subject}-chapters`;
+            const container = document.getElementById(containerId);
+            
+            if (!container) return;
+
+            if (chapters.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📖</div>
+                        <div class="empty-state-text">No chapters added yet</div>
+                        <p style="color: #a0aec0;">Click "Add Chapter" to get started</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+
+            chapters.forEach(chapter => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = 'chapter-card';
+                chapterCard.innerHTML = `
+                    <div class="chapter-header" onclick="toggleSection(this)">
+                        <div class="chapter-title">
+                            <span class="collapse-icon">▼</span>
+                            📚 ${chapter.name}
+                        </div>
+                        <div class="chapter-progress">0/0 lectures</div>
+                    </div>
+                    <div class="lecture-section" id="lectures-${chapter.id}">
+                        <p style="color: #a0aec0; padding: 20px 0;">No lectures added yet</p>
+                    </div>
+                    <div class="add-content-section">
+                        <button class="add-btn" onclick="addLecture('${chapter.id}')">+ Add Lecture</button>
+                        <button class="add-btn" onclick="addResource('${chapter.id}')">+ Add Resource</button>
+                    </div>
+                    <div class="resources-section hidden" id="resources-${chapter.id}"></div>
+                `;
+                container.appendChild(chapterCard);
+
+                // Load lectures
+                loadLectures(chapter.id);
+                // Load resources
+                loadResources(chapter.id);
+            });
+        }
+
+        function loadLectures(chapterId) {
+            const lecturesRef = db.ref(`lectures/${chapterId}`);
+            
+            lecturesRef.once('value', (snapshot) => {
+                const lectures = [];
+                snapshot.forEach((childSnapshot) => {
+                    lectures.push({
+                        id: childSnapshot.key,
+                        ...childSnapshot.val()
+                    });
+                });
+
+                // Sort by order
+                lectures.sort((a, b) => a.order - b.order);
+
+                renderLectures(chapterId, lectures);
+            });
+        }
+
+        function renderLectures(chapterId, lectures) {
+            const container = document.getElementById(`lectures-${chapterId}`);
+            if (!container) return;
+
+            if (lectures.length === 0) {
+                container.innerHTML = '<p style="color: #a0aec0; padding: 20px 0;">No lectures added yet</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+
+            lectures.forEach((lecture, index) => {
+                const lectureItem = document.createElement('div');
+                lectureItem.className = 'lecture-item';
+                lectureItem.draggable = true;
+                lectureItem.dataset.lectureId = lecture.id;
+                lectureItem.dataset.order = lecture.order;
+
+                let statusClass = 'status-pending';
+                let statusText = 'Not Started';
+                if (lecture.status === 'watching') {
+                    statusClass = 'status-watching';
+                    statusText = 'Watching';
+                } else if (lecture.status === 'completed') {
+                    statusClass = 'status-completed';
+                    statusText = 'Completed';
+                }
+
+                let dppHTML = '';
+                if (lecture.dpp) {
+                    const questions = lecture.dpp.questions || {};
+                    const totalQuestions = lecture.dpp.totalQuestions || Object.keys(questions).length;
+                    
+                    let dppStatusClass = 'dpp-not-attempted';
+                    let dppStatusText = 'Not Attempted';
+                    
+                    if (lecture.dpp.status === 'attempted') {
+                        dppStatusClass = 'dpp-attempted';
+                        dppStatusText = 'In Progress';
+                    } else if (lecture.dpp.status === 'completed') {
+                        dppStatusClass = 'dpp-completed';
+                        dppStatusText = 'Completed ✓';
+                    }
+
+                    let questionsHTML = '';
+                    for (let i = 1; i <= totalQuestions; i++) {
+                        const state = questions[i] || 'unattempted';
+                        let qClass = 'q-unattempted';
+                        if (state === 'correct') qClass = 'q-correct';
+                        else if (state === 'incorrect') qClass = 'q-incorrect';
+                        else if (state === 'marked') qClass = 'q-marked';
+
+                        questionsHTML += `
+                            <div class="question-bubble ${qClass}" 
+                                 onclick="toggleQuestion('${chapterId}', '${lecture.id}', ${i})"
+                                 title="Question ${i}">
+                                ${i}
+                            </div>
+                        `;
+                    }
+
+                    dppHTML = `
+                        <div class="dpp-inline">
+                            <div class="dpp-header">
+                                <div class="dpp-title">📝 DPP-${lecture.dpp.number}</div>
+                                <div class="dpp-status ${dppStatusClass}">${dppStatusText}</div>
+                            </div>
+                            <div class="dpp-questions">
+                                ${questionsHTML}
+                            </div>
+                            <p style="font-size: 0.85em; color: #718096; margin-top: 10px;">
+                                Click to mark: Unattempted → Correct → Incorrect → Review → Unattempted
+                            </p>
+                        </div>
+                    `;
+                }
+
+                lectureItem.innerHTML = `
+                    <div class="lecture-header">
+                        <div class="lecture-title">
+                            <span class="drag-handle">⋮⋮</span>
+                            🎥 ${lecture.name}
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <div class="lecture-status ${statusClass}">${statusText}</div>
+                            <select onchange="updateLectureStatus('${chapterId}', '${lecture.id}', this.value)" 
+                                    style="padding: 6px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                <option value="pending" ${lecture.status === 'pending' ? 'selected' : ''}>Not Started</option>
+                                <option value="watching" ${lecture.status === 'watching' ? 'selected' : ''}>Watching</option>
+                                <option value="completed" ${lecture.status === 'completed' ? 'selected' : ''}>Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    ${dppHTML}
+                `;
+
+                container.appendChild(lectureItem);
+
+                // Add drag-and-drop event listeners
+                setupDragAndDrop(lectureItem, chapterId);
+            });
+        }
+
+        // Drag and drop functionality
+        function setupDragAndDrop(element, chapterId) {
+            element.addEventListener('dragstart', (e) => {
+                element.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', element.innerHTML);
+            });
+
+            element.addEventListener('dragend', (e) => {
+                element.classList.remove('dragging');
+            });
+
+            element.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                const dragging = document.querySelector('.dragging');
+                const container = element.parentElement;
+                const afterElement = getDragAfterElement(container, e.clientY);
+                
+                if (afterElement == null) {
+                    container.appendChild(dragging);
+                } else {
+                    container.insertBefore(dragging, afterElement);
+                }
+            });
+
+            element.addEventListener('drop', (e) => {
+                e.preventDefault();
+                updateLectureOrder(chapterId);
+            });
+        }
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.lecture-item:not(.dragging)')];
+
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        function updateLectureOrder(chapterId) {
+            const container = document.getElementById(`lectures-${chapterId}`);
+            const lectureItems = container.querySelectorAll('.lecture-item');
+            
+            const updates = {};
+            lectureItems.forEach((item, index) => {
+                const lectureId = item.dataset.lectureId;
+                updates[`lectures/${chapterId}/${lectureId}/order`] = index;
+            });
+
+            db.ref().update(updates);
+        }
+
+        function loadResources(chapterId) {
+            const resourcesRef = db.ref(`resources/${chapterId}`);
+            
+            resourcesRef.once('value', (snapshot) => {
+                const resources = [];
+                snapshot.forEach((childSnapshot) => {
+                    resources.push({
+                        id: childSnapshot.key,
+                        ...childSnapshot.val()
+                    });
+                });
+
+                if (resources.length > 0) {
+                    renderResources(chapterId, resources);
+                }
+            });
+        }
+
+        function renderResources(chapterId, resources) {
+            const container = document.getElementById(`resources-${chapterId}`);
+            if (!container) return;
+
+            container.classList.remove('hidden');
+            
+            let resourcesHTML = '<div class="resources-title">📦 Additional Resources</div>';
+            
+            resources.forEach(resource => {
+                const typeLabels = {
+                    'pyq': 'PYQ',
+                    'questions': 'Question Sheet',
+                    'notes': 'Notes',
+                    'other': 'Other'
+                };
+
+                resourcesHTML += `
+                    <div class="resource-item">
+                        <div class="resource-name">${resource.name}</div>
+                        <div class="resource-type">${typeLabels[resource.type]}</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = resourcesHTML;
+        }
+
+        // Initialize on load
         document.addEventListener('DOMContentLoaded', () => {
-            app.init();
+            loadChapters('physics');
         });
     </script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 </body>
 </html>
